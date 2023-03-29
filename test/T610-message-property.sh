@@ -163,7 +163,6 @@ EOF
 test_expect_equal_file EXPECTED OUTPUT
 
 test_begin_subtest "notmuch_message_properties: multiple values"
-test_subtest_known_broken
 cat c_head - c_tail <<'EOF' | test_C ${MAIL_DIR}
 EXPECT0(notmuch_message_add_property (message, "testkey1", "bob"));
 EXPECT0(notmuch_message_add_property (message, "testkey1", "testvalue2"));
@@ -180,7 +179,6 @@ EOF
 test_expect_equal_file EXPECTED OUTPUT
 
 test_begin_subtest "notmuch_message_properties: prefix"
-test_subtest_known_broken
 cat c_head - c_tail <<'EOF' | test_C ${MAIL_DIR}
 EXPECT0(notmuch_message_add_property (message, "testkey3", "bob3"));
 EXPECT0(notmuch_message_add_property (message, "testkey3", "testvalue3"));
@@ -235,7 +233,6 @@ EOF
 test_expect_equal_file EXPECTED OUTPUT
 
 test_begin_subtest "dump message properties"
-test_subtest_known_broken
 cat <<EOF > PROPERTIES
 #= 4EFC743A.3060609@april.org fancy%20key%20with%20%c3%a1cc%c3%a8nts=import%20value%20with%20= testkey1=alice testkey1=bob testkey1=testvalue2 testkey3=alice3 testkey3=bob3 testkey3=testvalue3
 EOF
@@ -246,7 +243,6 @@ notmuch dump | grep '^#=' > OUTPUT
 test_expect_equal_file PROPERTIES OUTPUT
 
 test_begin_subtest "dump _only_ message properties"
-test_subtest_known_broken
 cat <<EOF > EXPECTED
 #notmuch-dump batch-tag:3 properties
 #= 4EFC743A.3060609@april.org fancy%20key%20with%20%c3%a1cc%c3%a8nts=import%20value%20with%20= testkey1=alice testkey1=bob testkey1=testvalue2 testkey3=alice3 testkey3=bob3 testkey3=testvalue3
@@ -256,7 +252,6 @@ test_expect_equal_file EXPECTED OUTPUT
 
 
 test_begin_subtest "restore missing message property (single line)"
-test_subtest_known_broken
 notmuch dump | grep '^#=' > BEFORE1
 cat c_head - c_tail <<'EOF' | test_C ${MAIL_DIR}
 EXPECT0(notmuch_message_remove_property (message, "testkey1", "bob"));
@@ -267,7 +262,6 @@ test_expect_equal_file PROPERTIES OUTPUT
 
 
 test_begin_subtest "restore missing message property (full dump)"
-test_subtest_known_broken
 notmuch dump > BEFORE2
 cat c_head - c_tail <<'EOF' | test_C ${MAIL_DIR}
 EXPECT0(notmuch_message_remove_property (message, "testkey1", "bob"));
@@ -277,7 +271,6 @@ notmuch dump | grep '^#=' > OUTPUT
 test_expect_equal_file PROPERTIES OUTPUT
 
 test_begin_subtest "restore clear extra message property"
-test_subtest_known_broken
 cat c_head - c_tail <<'EOF' | test_C ${MAIL_DIR}
 EXPECT0(notmuch_message_add_property (message, "testkey1", "charles"));
 EOF
@@ -311,7 +304,6 @@ EOF
 test_expect_equal_file EXPECTED OUTPUT
 
 test_begin_subtest "msg.get_properties (python)"
-test_subtest_known_broken
 test_python <<'EOF'
 import notmuch
 db = notmuch.Database(mode=notmuch.Database.MODE.READ_ONLY)
@@ -327,7 +319,6 @@ EOF
 test_expect_equal_file EXPECTED OUTPUT
 
 test_begin_subtest "msg.get_properties (python, prefix)"
-test_subtest_known_broken
 test_python <<'EOF'
 import notmuch
 db = notmuch.Database(mode=notmuch.Database.MODE.READ_ONLY)

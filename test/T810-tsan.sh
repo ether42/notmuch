@@ -92,7 +92,6 @@ test_expect_equal_file EXPECTED OUTPUT
 
 if [ $NOTMUCH_HAVE_SFSEXP -eq 1 ]; then
     test_begin_subtest "sexp query"
-    test_subtest_known_broken
     test_C ${MAIL_DIR} ${MAIL_DIR}-2 <<EOF
 #include <notmuch-test.h>
 #include <pthread.h>
